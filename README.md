@@ -1,2 +1,253 @@
-# superstore-sales-profit-analysis
-SQL-based analysis of Superstore sales and profitability using SQLite, Python, and data visualization. Includes customer, product, discount, regional, and yearly sales analysis.
+# Superstore Sales & Profit Analysis
+
+A SQL-based data analysis project using the Sample Superstore dataset.
+
+The project focuses on analyzing sales, profit, discounts, shipping
+performance, product sub-categories, yearly sales, and customer
+profitability using **SQLite and SQL**. Python and pandas are used to
+execute SQL queries and create visualizations.
+
+## Project Objective
+
+The main objective of this project is to use SQL as the primary analysis
+tool to answer business-related questions and identify patterns in the
+Superstore sales data.
+
+The analysis covers:
+
+- Sales and profit performance
+- Shipping time by Ship Mode
+- Region, Category, and Sub-Category profitability
+- Top and bottom performing sub-categories
+- Discount and profit relationships
+- Year-over-year sales changes
+- Loss-making sub-categories
+- Customer lifetime profitability
+
+## Dataset
+
+The project uses the **Sample Superstore** dataset.
+
+| Metric | Result |
+|---|---:|
+| Rows | 9,994 |
+| Columns | 21 |
+| Distinct Customers | 793 |
+| Distinct Products | 1,862 |
+| Minimum Order Date | 2014-01-03 |
+| Maximum Order Date | 2017-12-30 |
+
+The dataset contains sales transactions from **2014 to 2017**.
+
+## Tools & Technologies
+
+- **SQL / SQLite** - Main analysis and data processing
+- **Python** - Query execution and visualization
+- **Pandas** - Working with SQL query results
+- **Matplotlib** - Data visualization
+- **Jupyter Notebook** - Analysis workflow
+- **DB Browser for SQLite** - Database management
+
+## SQL Techniques Used
+
+The project uses several SQL concepts, including:
+
+- `SELECT`
+- `WHERE`
+- `GROUP BY`
+- `HAVING`
+- `ORDER BY`
+- `LIMIT`
+- `SUM()`
+- `AVG()`
+- `COUNT()`
+- `COUNT(DISTINCT ...)`
+- `CASE WHEN`
+- `UNION ALL`
+- `LAG()`
+- `julianday()`
+- Window functions
+
+## Data Preparation
+
+The original CSV dataset was loaded into an SQLite database and stored
+in an `orders` table.
+
+Dates were converted into ISO format before loading the data into the
+database.
+
+The database table uses appropriate data types for IDs, dates, sales,
+discounts, quantities, and profit.
+
+A total of **9,994 rows** were loaded into the final database.
+
+## Data Quality Checks
+
+The dataset was checked for:
+
+- Missing values
+- Duplicate order lines
+- Number of rows
+- Distinct customers
+- Distinct products
+- Minimum and maximum order dates
+
+All **21 columns contained 0 NULL values**.
+
+The duplicate check identified **8 Order ID + Product ID combinations**
+that occurred twice. These records were not removed because the analysis
+did not independently establish that they were invalid.
+
+## Key Findings
+
+### Shipping Performance
+
+Average shipping time varied by shipping mode.
+
+- Same Day: **0.04 days**
+- First Class: **2.18 days**
+- Second Class: **3.24 days**
+- Standard Class: **5.01 days**
+
+### Sub-Category Profitability
+
+The highest-profit sub-category was **Copiers**, with total profit of
+**$55,617.82**.
+
+Other high-profit sub-categories included:
+
+- Phones: **$44,515.73**
+- Accessories: **$41,936.64**
+- Paper: **$34,053.57**
+- Binders: **$30,221.76**
+
+The lowest-profit sub-category was **Tables**, with total profit of
+**-$17,725.48**.
+
+### Discount and Profitability
+
+Higher discount bands were associated with lower observed profitability.
+
+| Discount Band | Average Profit | Total Profit |
+|---|---:|---:|
+| 0% | $66.90 | $320,987.60 |
+| 1–20% | $26.50 | $100,785.47 |
+| 21–40% | -$77.86 | -$35,817.47 |
+| 41%+ | -$106.71 | -$99,558.59 |
+
+This is a descriptive relationship and does not establish that discount
+level alone caused the profit differences.
+
+### Yearly Sales
+
+Sales changed significantly across the four years.
+
+| Year | Total Sales | YoY % |
+|---|---:|---:|
+| 2014 | $484,247.50 | — |
+| 2015 | $470,532.51 | -2.83% |
+| 2016 | $609,205.60 | +29.47% |
+| 2017 | $733,215.26 | +20.36% |
+
+Sales reached **$733,215.26 in 2017**.
+
+### Negative-Profit Sub-Categories
+
+Three sub-categories generated negative total profit:
+
+| Sub-Category | Total Profit | Revenue Share |
+|---|---:|---:|
+| Tables | -$17,725.48 | 9.01% |
+| Bookcases | -$3,472.56 | 5.00% |
+| Supplies | -$1,189.10 | 2.03% |
+
+Together, they represented approximately **16.04% of total revenue**.
+
+## Customer Profitability
+
+Customers were analyzed based on lifetime profit.
+
+The highest lifetime-profit customer in the analysis was **Tamara Chand**:
+
+- Lifetime Profit: **$8,981.32**
+- Order Count: **5**
+- Average Order Value: **$3,810.44**
+
+The top 10 customers were ranked using SQL aggregation.
+
+## Visualizations
+
+The project includes three visualizations:
+
+### 1. Profit by Sub-Category
+
+Shows the total profit generated by each product sub-category.
+
+### 2. Yearly Sales Trend
+
+Shows total sales and year-over-year changes from 2014 to 2017.
+
+### 3. Average Profit by Discount Band
+
+Compares average profit across different discount levels.
+
+The visualizations were created in Python using the results of SQL
+queries.
+
+
+## Business Insights
+
+The analysis identified four main areas for further investigation:
+
+1. **High-discount transactions** showed negative observed
+   profitability in the higher discount bands.
+2. **Tables, Bookcases, and Supplies** generated negative total profit
+   while representing approximately 16.04% of total revenue.
+3. **Copiers, Phones, and Accessories** were major contributors to
+   observed total profit.
+4. **Sales increased after 2015**, reaching $733,215.26 in 2017.
+
+These findings can be explored further by product, region, category,
+customer segment, and discount level.
+
+## Limitations
+
+This analysis is based on the available Superstore dataset and describes
+patterns in the observed transactions.
+
+The relationship between discount and profitability is descriptive and
+does not prove causation.
+
+The duplicate records were identified but not removed because there was
+not enough evidence to determine whether they represented invalid data.
+
+## Conclusion
+
+This project demonstrates how SQL can be used as the main tool for
+business data analysis.
+
+Using SQLite, SQL queries, Python, and visualizations, the project
+analyzes sales, profitability, discounts, shipping performance, and
+customer behavior in the Superstore dataset.
+
+
+## Project Structure
+
+```text
+superstore-sales-profit-analysis/
+│
+├── data/
+│   └── Sample - Superstore.csv
+│
+├── visuals/
+│   ├── profit_by_subcategory.png
+│   ├── yearly_sales_trend.png
+│   └── average_profit_discount.png
+│
+├── note.md
+├── queries.sql
+├── superstore.db
+├── superstore_analysis.ipynb
+└── README.md
+
+
